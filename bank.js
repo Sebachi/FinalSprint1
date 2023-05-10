@@ -52,29 +52,45 @@ const users = [{
 
 
 let access = false;
+let accessPassword = false
 let newUser;
 let newPassword ;
 
 
 while (!access) {
     newUser = Number(prompt('Ingrese usuario'));
-    newPassword = Number(prompt('Ingrese contrasena'));
+    
     for (let index = 0; index < users.length; index++) {
-        if (newUser === users[index].Id && newPassword === users[index].password) 
+        if (newUser === users[index].Id ) 
         {  
             access = true;     
-            console.log(`Bienvenido ${users[index].username}, te has logeado`)
+            console.log(`Bienvenido ${users[index].username}`)
             break;
         }
+        
     }
 
 
     if (!access) {  
-            console.log('Ingresaste mal el ID o la contrasena o el usuario no existe, por favor intenta de nuevo');
+            console.log('Ingresaste mal el ID ');
         
         }
-      
-    
+}
+while (!accessPassword) {
+    newPassword = Number(prompt('Ingrese contrasena'));
+    for (let index = 0; index < users.length; index++) {
+        if (newPassword === users[index].password) 
+        {  
+            accessPassword = true;     
+            console.log(` Te has logeado`)
+        break;
+        }
+    }
+
+    if (!accessPassword) {  
+            console.log('Ingresaste mal la contrasena');
+        
+        }
 }
 
 
