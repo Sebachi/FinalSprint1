@@ -146,6 +146,13 @@ let billoutput = 0 ;
 let totalbills = []
 let totalValor 
 let temporalbill = []
+// Operacion para redondear billetes
+// let rounded = Math.floor(billoutput);
+
+// if (rounded % 5 !== 0) {
+//   rounded -= rounded % 5;
+// }
+
 
 
 
@@ -173,17 +180,49 @@ if (accessPassword === true) {
 
             billoutput = Number(prompt('Ingresa la cantidad de dinero que deseas retirar'))
             if ( billoutput < totalValor){
-                for (let i = 0; i < array.length; i++) {
-                   
-                    
+
+                while (billoutput => 100 && bills[0].cantidad != 0) {
+                    billoutput = billoutput - 100;
+                    bills[0].cantidad =  bills[0].cantidad - 1;
+                    temporalbill = temporalbill + bills[0].valor;
+                  }
+                  while (billoutput => 50 && bills[1].cantidad != 0) {
+                    billoutput = billoutput - 50;
+                    bills[1].cantidad =  bills[1].cantidad - 1;
+                    temporalbill = temporalbill + bills[1].valor;
+                  }
+                  while (billoutput => 20 && bills[2].cantidad != 0) {
+                    billoutput = billoutput - 20;
+                     bills[2].cantidad =  bills[2].cantidad - 1;
+                     temporalbill = temporalbill + bills[2].valor;
+                  }
+                  while (billoutput => 10 && bills[3].cantidad != 0) {
+                    billoutput = billoutput - 10;
+                     bills[3].cantidad =  bills[3].cantidad - 1;
+                     temporalbill = temporalbill + bills[3].valor;
+                  }
+                  while (billoutput => 5 && bills[4].cantidad != 0) {
+                    billoutput = billoutput - 5;
+                    bills[4].cantidad =  bills[4].cantidad- 1;
+                    temporalbill = temporalbill + bills[4].valor;
+                  }
+             if (temporalbill = billoutput) {
+                console.log(`Transaccion exitosa`);
+             }
+             else {
+                console.log(`Solo se pudo sacar ${temporalbill} de los ${billoutput} solicitados`);
+             } 
+
+            for (let index = 0; index < bills.length; index++) {
+                    console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills.cantidad}`);
                 }
+                totalValor = bills.reduce((acc, curr) => acc + curr.valor, 0);
+        console.log("La cantidad total del dinero dentro del cajero es ", totalValor);
             }
             else {console.log('Lo sentimos, actualmente no tenemos la cantidad de dinero solicitada.');
             access = false
             accessPassword = false
         }
-
-
     }
 }
 
