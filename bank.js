@@ -41,6 +41,9 @@ const users = [{
     type: 'client',
 }
 ]
+
+
+
 // 2. Realizar un programa que al inicio solicite ingresar 
 // documento y contraseña, si el usuario no existe debe indicar 
 // que no existe y volver a preguntar usuario y contraseña, 
@@ -50,215 +53,215 @@ let access = false;
 let accessPassword = false
 let newUser;
 let newPassword;
+let currType = ''
+const reseteo = () => {
+    access = false;
+    accessPassword = false;
+    currType = "";
+    startProgram();
+};
 
 
-while (!access) {
-    newUser = Number(prompt('Ingrese usuario'));
 
-    for (let index = 0; index < users.length; index++) {
-        if (newUser === users[index].Id) {
-            access = true;
-            console.log(`Bienvenido ${users[index].username}`)
-            break;
+const startProgram = () => {
+    while (!access) {
+        newUser = Number(prompt('Ingrese usuario'));
+
+        for (let index = 0; index < users.length; index++) {
+            if (newUser === users[index].Id) {
+                access = true;
+                console.log(`Bienvenido ${users[index].username}`)
+                currType = users[index].type
+                break;
+            }
+
+        }
+        if (!access) {
+            console.log('El usuario no existe ');
+
+        }
+    }
+    while (!accessPassword) {
+        newPassword = Number(prompt('Ingrese contrasena'));
+        for (let index = 0; index < users.length; index++) {
+            if (newPassword === users[index].password) {
+                accessPassword = true;
+                console.log(` Te has logeado`)
+                break;
+            }
         }
 
-    }
-    if (!access) {
-        console.log('El usuario no existe ');
+        if (!accessPassword) {
+            console.log('Ingresaste mal la contrasena');
 
-    }
-}
-while (!accessPassword) {
-    newPassword = Number(prompt('Ingrese contrasena'));
-    for (let index = 0; index < users.length; index++) {
-        if (newPassword === users[index].password) {
-            accessPassword = true;
-            console.log(` Te has logeado`)
-            break;
         }
     }
 
-    if (!accessPassword) {
-        console.log('Ingresaste mal la contrasena');
+    //3. Solicitar la cantidad de billetes de 5,
+    // 10, 20, 50 y 100 mil pesos COP.
 
-    }
-}
+    const bills = [
+        {
+            valor: 100,
+            cantidad: 100,
+        },
+        {
+            valor: 50,
+            cantidad: 100,
+        },
+        {
+            valor: 20,
+            cantidad: 100,
+        },
+        {
+            valor: 10,
+            cantidad: 100,
+        },
+        {
+            valor: 5,
+            cantidad: 100,
+        },
+    ]
 
-//3. Solicitar la cantidad de billetes de 5,
-// 10, 20, 50 y 100 mil pesos COP.
-
-const bills = [
-    {
+    const billchange = [{
         valor: 100,
-        cantidad: 100,
+        cantidad: 0,
     },
     {
         valor: 50,
-        cantidad: 100,
+        cantidad: 0,
     },
     {
         valor: 20,
-        cantidad: 100,
+        cantidad: 0,
     },
     {
         valor: 10,
-        cantidad: 100,
+        cantidad: 0,
     },
     {
         valor: 5,
-        cantidad: 100,
+        cantidad: 0,
     },
-]
+    ];
 
-const billchange = [{
-    valor: 100,
+    // 4. Almacenar esta información en un array de objetos.
+    // 5. Una vez tenga la información, debe mostrar en consola
+    // la suma por cada denominación y el total general.
+    let billinput = 0;
+    let billoutput = 0;
+    let totalValor = 0
+    for (let index = 0; index < bills.length; index++) {
+        totalValor = totalValor + (bills[index].valor * bills[index].cantidad)
 
-},
-{
-    valor: 50,
-},
-{
-    valor: 20,
-
-},
-{
-    valor: 10,
-
-},
-{
-    valor: 5,
-},
-];
-
-// 4. Almacenar esta información en un array de objetos.
-// 5. Una vez tenga la información, debe mostrar en consola
-// la suma por cada denominación y el total general.
-let billinput = 0;
-let billoutput = 0;
-
-let totalValor = 0
-let temporalbill = []
-// Funcion para redondear billetes
-let redondeo = () => {
-    let rounded = Math.floor(billoutput);
-    if (rounded % 5 !== 0) { rounded -= rounded % 5; }; return rounded
-}
-//   
-// 
-
-
-
-
-if (accessPassword === true) {
-
-    if (users.type == 'admin') {
-        for (let i = 0; i < billchange.length; i++) {
-            billchange[i].cantidad = Number(prompt(`Ingrese la cantiddad de billetes de ${bills[i].valor} a ingresar`))
-
-        }
-        // billchange[0].cantidad = Number(prompt('Ingrese la cantiddad de billetes de 100 a ingresar'))
-        // billchange[1].cantidad = Number(prompt('Ingrese la cantiddad de billetes de 50 a ingresar'))
-        // billchange[2].cantidad = Number(prompt('Ingrese la cantiddad de billetes de 20 a ingresar'))
-        // billchange[3].cantidad = Number(prompt('Ingrese la cantiddad de billetes de 10 a ingresar'))
-        // billchange[4].cantidad = Number(prompt('Ingrese la cantiddad de billetes de 5 a ingresar'))
-
-        for (let index = 0; index < bills.length; index++) {
-            bills[index].cantidad = bills[index].cantidad + billchange[index].cantidad
-            console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills[index].cantidad}`);
-            totalValor = totalValor + (bills[index].valor * bills[index].cantidad)
-        }
-
-
-        // totalValor = bills.reduce((acc, curr) => acc + curr.valor, 0);
-        console.log("La cantidad total del dinero dentro del cajero es " + totalValor);
-        for (let i = 0; i < billchange.length; i++) {
-            billchange[i].cantidad = 0
-        }
-        access = false
-        accessPassword = false
+    }
+    let temporalbill = 0
+    // Funcion para redondear billetes
+    let redondeo = () => {
+        let rounded = Math.floor(billoutput);
+        if (rounded % 5 !== 0) { rounded -= rounded % 5; }; return rounded
     }
 
-    // PARA LOS CLIENTES 
-    else if (users.type == 'client') {
-        totalValor = bills.reduce((acc, curr) => acc + curr.valor, 0);
+    if (accessPassword === true) {
 
-        if (totalValor != 0) {
+        if (currType == 'admin') {
+            for (let i = 0; i < billchange.length; i++) {
+                billchange[i].cantidad = Number(prompt(`Ingrese la cantiddad de billetes de ${bills[i].valor} a ingresar`))
 
+            }
+            for (let index = 0; index < bills.length; index++) {
+                bills[index].cantidad = bills[index].cantidad + billchange[index].cantidad
+                console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills[index].cantidad}`);
+                totalValor = totalValor + (bills[index].valor * bills[index].cantidad)
+            }
+            console.log("La cantidad total del dinero dentro del cajero es " + totalValor);
+            for (let i = 0; i < billchange.length; i++) {
+                billchange[i].cantidad = 0
+            }
+            reseteo()
 
+        }
+        // PARA LOS CLIENTES 
+        else if (currType == 'client') {
 
-            billoutput = Number(prompt('Ingresa la cantidad de dinero que deseas retirar'))
-            if (billoutput < totalValor) {
+            if (totalValor != 0) {
 
-                for (let i = 0; i < billchange.length; i++) {
+                billoutput = Number(prompt('Ingresa la cantidad de dinero que deseas retirar'))
+                billinput = billoutput
+                if (billoutput < totalValor) {
+                    console.log(`Ya ingrese el dinero`);
+                    for (let i = 0; i < billchange.length; i++) {
+                        while (billoutput >= bills[i].valor && bills[i].cantidad != 0) {
 
-                    while (billoutput => bills[i].valor && bills[i].cantidad != 0) {
-                        billoutput = billoutput - bills[i].valor;
-                        bills[i].cantidad = bills[i].cantidad - 1;
-                        temporalbill = temporalbill + bills[i].valor;
-                        billchange[i].cantidad = billchange[i].cantidad + 1;
-
+                            billoutput = billoutput - bills[i].valor;
+                            bills[i].cantidad = bills[i].cantidad - 1;
+                            temporalbill = temporalbill + bills[i].valor;
+                            billchange[i].cantidad = billchange[i].cantidad + 1;
+                        }
                     }
-                }
 
 
-                // while (billoutput => 100 && bills[0].cantidad != 0) {
-                //     billoutput = billoutput - 100;
-                //     bills[0].cantidad = bills[0].cantidad - 1;
-                //     temporalbill = temporalbill + bills[0].valor;
-                //     billchange[0].cantidad = billchange[0].cantidad + 1;
-                // }
-                // while (billoutput => 50 && bills[1].cantidad != 0) {
-                //     billoutput = billoutput - 50;
-                //     bills[1].cantidad = bills[1].cantidad - 1;
-                //     temporalbill = temporalbill + bills[1].valor;
-                // }
-                // while (billoutput => 20 && bills[2].cantidad != 0) {
-                //     billoutput = billoutput - 20;
-                //     bills[2].cantidad = bills[2].cantidad - 1;
-                //     temporalbill = temporalbill + bills[2].valor;
-                // }
-                // while (billoutput => 10 && bills[3].cantidad != 0) {
-                //     billoutput = billoutput - 10;
-                //     bills[3].cantidad = bills[3].cantidad - 1;
-                //     temporalbill = temporalbill + bills[3].valor;
-                // }
-                // while (billoutput => 5 && bills[4].cantidad != 0) {
-                //     billoutput = billoutput - 5;
-                //     bills[4].cantidad = bills[4].cantidad - 1;
-                //     temporalbill = temporalbill + bills[4].valor;
-                // }
-                if (temporalbill == billoutput) {
-                    console.log(`Se le puede entregar ${temporalbill}`);
+                    // while (billoutput => 100 && bills[0].cantidad != 0) {
+                    //     billoutput = billoutput - 100;
+                    //     bills[0].cantidad = bills[0].cantidad - 1;
+                    //     temporalbill = temporalbill + bills[0].valor;
+                    //     billchange[0].cantidad = billchange[0].cantidad + 1;
+
+                    // }
+                    // while (billoutput => 50 && bills[1].cantidad != 0) {
+                    //     billoutput = billoutput - 50;
+                    //     bills[1].cantidad = bills[1].cantidad - 1;
+                    //     temporalbill = temporalbill + bills[1].valor;
+                    //     billchange[1].cantidad = billchange[1].cantidad + 1;
+                    // }
+                    // while (billoutput => 20 && bills[2].cantidad != 0) {
+                    //     billoutput = billoutput - 20;
+                    //     bills[2].cantidad = bills[2].cantidad - 1;
+                    //     temporalbill = temporalbill + bills[2].valor;
+                    //      billchange[2].cantidad = billchange[2].cantidad + 1;
+                    // }
+                    // while (billoutput => 10 && bills[3].cantidad != 0) {
+                    //     billoutput = billoutput - 10;
+                    //     bills[3].cantidad = bills[3].cantidad - 1;
+                    //     temporalbill = temporalbill + bills[3].valor;
+                    //      billchange[3].cantidad = billchange[3].cantidad + 1;
+                    // }
+                    // while (billoutput => 5 && bills[4].cantidad != 0) {
+                    //     billoutput = billoutput - 5;
+                    //     bills[4].cantidad = bills[4].cantidad - 1;
+                    //     temporalbill = temporalbill + bills[4].valor;
+                    //      billchange[4].cantidad = billchange[4].cantidad + 1;
+                    // }
+                    if (temporalbill == billinput) {
+                        console.log(`Se le puede entregar ${temporalbill}`);
+                    }
+                    else {
+                        console.log(`Solo se pudo sacar ${temporalbill} de los ${billinput} solicitados`);
+                    }
+                    for (let index = 0; index < bills.length; index++) {
+                        console.log(`La cantidad de billetes de ${billchange[index].valor} entregados es de ${billchange[index].cantidad}`);
+                    }
+                    for (let index = 0; index < bills.length; index++) {
+                        console.log(`La cantidad de billetes de ${bills[index].valor} en el cajero es de ${bills[index].cantidad}`);
+                        billchange[index].cantidad = 0
+                    }
+
+
                 }
                 else {
-                    console.log(`Solo se pudo sacar ${temporalbill} de los ${billoutput} solicitados`);
+                    console.log('Lo sentimos, actualmente no tenemos la cantidad de dinero solicitada.');
+                    reseteo()
                 }
-                for (let index = 0; index < bills.length; index++) {
-                    console.log(`La cantidad de billetes de ${billchange[index].valor} entregados es de ${billchange[index].cantidad}`);
-                }
-                for (let index = 0; index < bills.length; index++) {
-                    console.log(`La cantidad de billetes de ${bills[index].valor} en el cajero es de ${bills[index].cantidad}`);
-                    billchange[i].cantidad = 0
-                }
-
-
             }
             else {
-                console.log('Lo sentimos, actualmente no tenemos la cantidad de dinero solicitada.');
-                access = false
-                accessPassword = false
+                console.log(`Cajero en mantenimiento, vuelva pronto.`);
+                reseteo()
             }
         }
-        else {
-            console.log(`Cajero en mantenimiento, vuelva pronto.`);
-            access = false
-            accessPassword = false
-        }
+
     }
-
 }
-
-
+startProgram();
 // 6. Una vez el cajero esté cargado, debe volver a
 // solicitar usuario y contraseña, si es administrador,
 // se repite el mismo proceso, sumar a la cantidad actual,
