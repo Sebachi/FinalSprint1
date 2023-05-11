@@ -69,8 +69,6 @@ while (!access) {
         }
         
     }
-
-
     if (!access) {  
             console.log('Ingresaste mal el ID ');
         
@@ -146,12 +144,11 @@ let billoutput = 0 ;
 let totalbills = []
 let totalValor 
 let temporalbill = []
-// Operacion para redondear billetes
-// let rounded = Math.floor(billoutput);
-
-// if (rounded % 5 !== 0) {
-//   rounded -= rounded % 5;
-// }
+// Funcion para redondear billetes
+let redondeo = () =>  { let rounded = Math.floor(billoutput);
+if (rounded % 5 !== 0) {rounded -= rounded % 5;}; return rounded}
+//   
+// 
 
 
 
@@ -167,11 +164,11 @@ if (accessPassword === true) {
 
         for (let index = 0; index < bills.length; index++) {
             bills[index].cantidad = bills[index].cantidad + billchange[index].cantidad
-            console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills.cantidad}`);
+            console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills[index].cantidad}`);
         }
 
         totalValor = bills.reduce((acc, curr) => acc + curr.valor, 0);
-        console.log("La cantidad total del dinero dentro del cajero es ", totalValor);
+        console.log("La cantidad total del dinero dentro del cajero es " + totalValor);
     
         access = false
         accessPassword = false
@@ -206,7 +203,7 @@ if (accessPassword === true) {
                     bills[4].cantidad =  bills[4].cantidad- 1;
                     temporalbill = temporalbill + bills[4].valor;
                   }
-             if (temporalbill = billoutput) {
+             if (temporalbill == billoutput) {
                 console.log(`Transaccion exitosa`);
              }
              else {
@@ -214,7 +211,7 @@ if (accessPassword === true) {
              } 
 
             for (let index = 0; index < bills.length; index++) {
-                    console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills.cantidad}`);
+                    console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills[index].cantidad}`);
                 }
                 totalValor = bills.reduce((acc, curr) => acc + curr.valor, 0);
         console.log("La cantidad total del dinero dentro del cajero es ", totalValor);
