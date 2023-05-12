@@ -43,13 +43,6 @@ let accessPassword = false
 let newUser;
 let newPassword;
 let currType = ''
-// Creacion de una funcion reseteo
-const reseteo = () => {
-    access = false;
-    accessPassword = false;
-    currType = "";
-    startProgram();
-};
 const bills = [
     {
         valor: 100,
@@ -72,6 +65,14 @@ const bills = [
         cantidad: 100,
     },
 ]
+// Creacion de una funcion reseteo
+const reset = () => {
+    access = false;
+    accessPassword = false;
+    currType = "";
+    startProgram();
+};
+
 // Inicio del programa
 const startProgram = () => {
     //Validacion de usuario y contrasena  
@@ -103,7 +104,6 @@ const startProgram = () => {
 
         }
     }
-
     // Declaracion de variables cache utilizadas para hacer operaciones
     const billchange = [{
         valor: 100,
@@ -176,7 +176,7 @@ const startProgram = () => {
                     }
                     // Si le entregara la cantidad total de la ingresada
                     if (temporalbill == billinput) {
-                        console.log(`Se le puede entregar ${temporalbill}`);
+                        console.log(`Se le pueden entregar los ${temporalbill} solicitados`);
                     }
                     // Si solo se pudo entregar una determinada cifra debido al redondeo
                     else {
@@ -210,5 +210,6 @@ const startProgram = () => {
 //Inicio del programa
 startProgram();
 //Boton para reset del programa
+// reset()
 const resetButton = document.getElementById('resetButton');
-resetButton.addEventListener('click', reseteo);
+resetButton.addEventListener('click', reset);
