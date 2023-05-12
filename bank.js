@@ -173,7 +173,7 @@ const startProgram = () => {
                 bills[index].cantidad = bills[index].cantidad + billchange[index].cantidad
                 console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills[index].cantidad}`);
             }
-           
+           totalValor 
             console.log("La cantidad total del dinero dentro del cajero es " + totalValor);
             for (let i = 0; i < billchange.length; i++) {
                 billchange[i].cantidad = 0
