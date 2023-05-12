@@ -86,7 +86,7 @@ const bills = [
 
 const startProgram = () => {
     while (!access) {
-        newUser = Number(prompt('Ingrese usuario'));
+        newUser = Number(prompt('Ingrese tu numero de documento: '));
 
         for (let index = 0; index < users.length; index++) {
             if (newUser === users[index].Id) {
@@ -120,9 +120,6 @@ const startProgram = () => {
 
     //3. Solicitar la cantidad de billetes de 5,
     // 10, 20, 50 y 100 mil pesos COP.
-
-  
-
     const billchange = [{
         valor: 100,
         cantidad: 0,
@@ -165,7 +162,6 @@ const startProgram = () => {
     //     let rounded = Math.floor(billoutput);
     //     if (rounded % 5 !== 0) { rounded -= rounded % 5; }; return rounded
     // }
-
     if (accessPassword) {
 
         if (currType == 'admin') {
@@ -199,39 +195,6 @@ const startProgram = () => {
                             billchange[i].cantidad +=  1;
                         }
                     }
-                
-
-                    // while (billoutput => 100 && bills[0].cantidad != 0) {
-                    //     billoutput = billoutput - 100;
-                    //     bills[0].cantidad = bills[0].cantidad - 1;
-                    //     temporalbill = temporalbill + bills[0].valor;
-                    //     billchange[0].cantidad = billchange[0].cantidad + 1;
-
-                    // }
-                    // while (billoutput => 50 && bills[1].cantidad != 0) {
-                    //     billoutput = billoutput - 50;
-                    //     bills[1].cantidad = bills[1].cantidad - 1;
-                    //     temporalbill = temporalbill + bills[1].valor;
-                    //     billchange[1].cantidad = billchange[1].cantidad + 1;
-                    // }
-                    // while (billoutput => 20 && bills[2].cantidad != 0) {
-                    //     billoutput = billoutput - 20;
-                    //     bills[2].cantidad = bills[2].cantidad - 1;
-                    //     temporalbill = temporalbill + bills[2].valor;
-                    //      billchange[2].cantidad = billchange[2].cantidad + 1;
-                    // }
-                    // while (billoutput => 10 && bills[3].cantidad != 0) {
-                    //     billoutput = billoutput - 10;
-                    //     bills[3].cantidad = bills[3].cantidad - 1;
-                    //     temporalbill = temporalbill + bills[3].valor;
-                    //      billchange[3].cantidad = billchange[3].cantidad + 1;
-                    // }
-                    // while (billoutput => 5 && bills[4].cantidad != 0) {
-                    //     billoutput = billoutput - 5;
-                    //     bills[4].cantidad = bills[4].cantidad - 1;
-                    //     temporalbill = temporalbill + bills[4].valor;
-                    //      billchange[4].cantidad = billchange[4].cantidad + 1;
-                    // }
                     if (temporalbill == billinput) {
                         console.log(`Se le puede entregar ${temporalbill}`);
                     }
@@ -263,6 +226,10 @@ const startProgram = () => {
     }
 }
 startProgram();
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', reseteo);
+
+
 // 6. Una vez el cajero esté cargado, debe volver a
 // solicitar usuario y contraseña, si es administrador,
 // se repite el mismo proceso, sumar a la cantidad actual,
