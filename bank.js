@@ -165,7 +165,6 @@ const startProgram = () => {
                 billinput = billoutput
                 //Si hay suficiente dinero en el cajero
                 if (billoutput <= totalValor) {
-                    console.log(`Ya ingrese el dinero`);
                     // Conteo de billetes a entregar adecuada a la cifra solicitada
                     for (let i = 0; i < billchange.length; i++) {
                         while (billoutput >= bills[i].valor && bills[i].cantidad != 0) {
