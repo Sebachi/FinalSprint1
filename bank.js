@@ -61,7 +61,28 @@ const reseteo = () => {
     startProgram();
 };
 
-
+const bills = [
+    {
+        valor: 100,
+        cantidad: 100,
+    },
+    {
+        valor: 50,
+        cantidad: 100,
+    },
+    {
+        valor: 20,
+        cantidad: 100,
+    },
+    {
+        valor: 10,
+        cantidad: 100,
+    },
+    {
+        valor: 5,
+        cantidad: 100,
+    },
+]
 
 const startProgram = () => {
     while (!access) {
@@ -100,28 +121,7 @@ const startProgram = () => {
     //3. Solicitar la cantidad de billetes de 5,
     // 10, 20, 50 y 100 mil pesos COP.
 
-    const bills = [
-        {
-            valor: 100,
-            cantidad: 100,
-        },
-        {
-            valor: 50,
-            cantidad: 100,
-        },
-        {
-            valor: 20,
-            cantidad: 100,
-        },
-        {
-            valor: 10,
-            cantidad: 100,
-        },
-        {
-            valor: 5,
-            cantidad: 100,
-        },
-    ]
+  
 
     const billchange = [{
         valor: 100,
@@ -150,56 +150,56 @@ const startProgram = () => {
     // la suma por cada denominación y el total general.
     let billinput = 0;
     let billoutput = 0;
-    let totalValor = 0
-    for (let index = 0; index < bills.length; index++) {
-        totalValor = totalValor + (bills[index].valor * bills[index].cantidad)
-
-    }
+     
+    const SumBillValue = (bills) => { 
+        let totalValor = 0
+        for (let index = 0; index < bills.length; index++) {
+        totalValor += (bills[index].valor * bills[index].cantidad)  } 
+        return totalValor}
+    let totalValor =  SumBillValue(bills)
+   
+    console.log(`En el cajero hay ${totalValor}`);
     let temporalbill = 0
     // Funcion para redondear billetes
-    let redondeo = () => {
-        let rounded = Math.floor(billoutput);
-        if (rounded % 5 !== 0) { rounded -= rounded % 5; }; return rounded
-    }
+    // let redondeo = () => {
+    //     let rounded = Math.floor(billoutput);
+    //     if (rounded % 5 !== 0) { rounded -= rounded % 5; }; return rounded
+    // }
 
-    if (accessPassword === true) {
+    if (accessPassword) {
 
         if (currType == 'admin') {
             for (let i = 0; i < billchange.length; i++) {
-                billchange[i].cantidad = Number(prompt(`Ingrese la cantiddad de billetes de ${bills[i].valor} a ingresar`))
+                billchange[i].cantidad = Number(prompt(`Ingrese la cantidad de billetes de ${bills[i].valor} a ingresar`))
 
             }
             for (let index = 0; index < bills.length; index++) {
                 bills[index].cantidad = bills[index].cantidad + billchange[index].cantidad
                 console.log(`La cantidad de billetes de ${bills[index].valor} es de ${bills[index].cantidad}`);
-                totalValor = totalValor + (bills[index].valor * bills[index].cantidad)
             }
+           
             console.log("La cantidad total del dinero dentro del cajero es " + totalValor);
             for (let i = 0; i < billchange.length; i++) {
                 billchange[i].cantidad = 0
-            }
-            reseteo()
-
+            }         
         }
         // PARA LOS CLIENTES 
         else if (currType == 'client') {
 
             if (totalValor != 0) {
-
                 billoutput = Number(prompt('Ingresa la cantidad de dinero que deseas retirar'))
                 billinput = billoutput
                 if (billoutput < totalValor) {
                     console.log(`Ya ingrese el dinero`);
                     for (let i = 0; i < billchange.length; i++) {
                         while (billoutput >= bills[i].valor && bills[i].cantidad != 0) {
-
-                            billoutput = billoutput - bills[i].valor;
-                            bills[i].cantidad = bills[i].cantidad - 1;
-                            temporalbill = temporalbill + bills[i].valor;
-                            billchange[i].cantidad = billchange[i].cantidad + 1;
+                            billoutput -= bills[i].valor;
+                            bills[i].cantidad -= 1;
+                            temporalbill += bills[i].valor;
+                            billchange[i].cantidad +=  1;
                         }
                     }
-
+                
 
                     // while (billoutput => 100 && bills[0].cantidad != 0) {
                     //     billoutput = billoutput - 100;
@@ -245,20 +245,21 @@ const startProgram = () => {
                         console.log(`La cantidad de billetes de ${bills[index].valor} en el cajero es de ${bills[index].cantidad}`);
                         billchange[index].cantidad = 0
                     }
-
-
+                    totalValor -= temporalbill
+                    console.log("La cantidad total del dinero dentro del cajero es de " + totalValor);
+                  
                 }
                 else {
                     console.log('Lo sentimos, actualmente no tenemos la cantidad de dinero solicitada.');
-                    reseteo()
+                    
                 }
             }
             else {
                 console.log(`Cajero en mantenimiento, vuelva pronto.`);
-                reseteo()
+                
             }
         }
-
+       
     }
 }
 startProgram();
